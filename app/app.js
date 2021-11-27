@@ -4,6 +4,13 @@ import SnowEnvironment from './classes/SnowEnvironment.js';
 // Gerar container para inserir o ambiente de partículas
 const container = Boot.createContainer('#particle-container');
 
+// Constantes da página
+const velocity = { min: 80, max: 200 };
+const direction = 90;
+const updateDirection = (d) => {
+	document.querySelector('#direction-value').innerHTML = d;
+};
+
 // Gerar ambiente de controle de partículas
 const snow = new SnowEnvironment(container, 100, () => {
 	const size = Math.random() * 6 + 2;
@@ -20,4 +27,11 @@ const snow = new SnowEnvironment(container, 100, () => {
 });
 
 window.addEventListener('resize', () => snow.clear());
-snow.start(80, 200, 90.0);
+snow.start(velocity.min, velocity.max, direction);
+
+document
+	.querySelector('#control-direction')
+	.addEventListener('change', (ev) => {
+		console.log(ev);
+	});
+updateDirection(direction);
