@@ -5,7 +5,7 @@ import SnowEnvironment from './classes/SnowEnvironment.js';
 const container = Boot.createContainer('#particle-container');
 
 // Gerar ambiente de controle de partículas
-const snow = new SnowEnvironment(container, 200, () => {
+const snow = new SnowEnvironment(container, 100, () => {
 	const size = Math.random() * 6 + 2;
 	const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
@@ -20,4 +20,4 @@ const snow = new SnowEnvironment(container, 200, () => {
 });
 
 window.addEventListener('resize', () => snow.clear());
-snow.start(300, 90.0);
+snow.start(80, 200, 90.0);

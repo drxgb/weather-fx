@@ -11,11 +11,11 @@ class Environment {
 		this.thread = () => {};
 	}
 
-	start(velocity, direction) {
+	start(min, max, direction) {
 		clearInterval(this.thread);
 
 		this.thread = setInterval(() => {
-			this.createParticle(velocity, direction);
+			this.createParticle({ min, max }, direction);
 			this.particles.forEach((particle) => particle.update());
 			for (let i = 0; i < this.particles.length; ++i) {
 				if (!this.particles[i].isInside()) {
@@ -36,7 +36,7 @@ class Environment {
 		return new Particle(
 			this.elementCallback(),
 			this.container,
-			new Vector(velocity, direction),
+			Vector.factory(velocity, direction),
 			this.setInitialPosition()
 		);
 	}
@@ -45,6 +45,10 @@ class Environment {
 		const x = Math.random() * this.container.clientWidth;
 		const y = Math.random() * this.container.clientHeight;
 		return new Position(x, y);
+	}
+
+	changeDirection(direction) {
+		this.particles.forEach((particle) => (particle.direction = direction));
 	}
 
 	clear() {
