@@ -35,9 +35,14 @@ class Particle {
 	}
 
 	update(elapsedTime = (1 / 60)) {
+		const pos = this.onUpdate(elapsedTime);
+		this.setPosition(this.position.x + pos.x, this.position.y + pos.y);
+	}
+
+	onUpdate(elapsedTime) {
 		const x = parseFloat(this.velocity.module.toString()) * Math.cos(this.velocity.direction) * elapsedTime;
 		const y = parseFloat(this.velocity.module.toString()) * Math.sin(this.velocity.direction) * elapsedTime;
-		this.setPosition(this.position.x + x, this.position.y + y);
+		return new Position(x, y);
 	}
 
 	isInside() {
