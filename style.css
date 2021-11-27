@@ -7,7 +7,8 @@ body {
 	box-sizing: border-box;
 }
 
-header, footer {
+header,
+footer {
 	background-color: #cb0028;
 	display: flex;
 	justify-content: space-between;
@@ -35,9 +36,14 @@ nav ul {
 
 nav ul > li > a {
 	text-decoration: none;
-	color: #FFF;
+	color: #fff;
 }
 
+.control {
+	background-color: #cc4444;
+	padding: 10px 20px;
+	border-radius: 8px;
+}
 
 @media only screen and (max-width: 1366px) {
 	main {

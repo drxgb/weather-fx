@@ -12,26 +12,37 @@ const updateDirection = (d) => {
 };
 
 // Gerar ambiente de controle de partículas
-const snow = new SnowEnvironment(container, 100, () => {
-	const size = Math.random() * 6 + 2;
-	const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const snow = new SnowEnvironment(
+	container,
+	100,
+	() => {
+		const size = Math.random() * 6 + 2;
+		const el = document.createElementNS(
+			'http://www.w3.org/2000/svg',
+			'svg'
+		);
 
-	el.setAttribute('width', size.toString());
-	el.setAttribute('height', size.toString());
-	el.style.position = 'absolute';
-	el.innerHTML = `<circle cx="${size / 2}" cy="${size / 2}" r="${
-		size / 2
-	}" fill="#C8E8FF" />`;
+		el.setAttribute('width', size.toString());
+		el.setAttribute('height', size.toString());
+		el.style.position = 'absolute';
+		el.innerHTML = `<circle cx="${size / 2}" cy="${size / 2}" r="${
+			size / 2
+		}" fill="#C8E8FF" />`;
 
-	return el;
-});
+		return el;
+	},
+	velocity.min,
+	velocity.max
+);
 
 window.addEventListener('resize', () => snow.clear());
-snow.start(velocity.min, velocity.max, direction);
+snow.start(direction);
 
 document
 	.querySelector('#control-direction')
 	.addEventListener('change', (ev) => {
-		console.log(ev);
+		const value = ev.target.value;
+		snow.changeDirection(value);
+		updateDirection(value);
 	});
 updateDirection(direction);

@@ -34,24 +34,31 @@ class Particle {
 		this.setY(y);
 	}
 
-	update(elapsedTime = (1 / 60)) {
+	update(elapsedTime = 1 / 60) {
 		const pos = this.onUpdate(elapsedTime);
 		this.setPosition(this.position.x + pos.x, this.position.y + pos.y);
 	}
 
 	onUpdate(elapsedTime) {
-		const x = parseFloat(this.velocity.module.toString()) * Math.cos(this.velocity.direction) * elapsedTime;
-		const y = parseFloat(this.velocity.module.toString()) * Math.sin(this.velocity.direction) * elapsedTime;
+		const d = (this.velocity.direction * Math.PI) / 180;
+		const x = this.velocity.module * Math.cos(d) * elapsedTime;
+		const y = this.velocity.module * Math.sin(d) * elapsedTime;
 		return new Position(x, y);
 	}
 
 	isInside() {
 		const x = this.position.x;
 		const y = this.position.y;
-		const w = (this.parent === undefined) ? window.innerWidth : this.parent.clientWidth;
-		const h = (this.parent === undefined) ? window.innerHeight : this.parent.clientHeight;
+		const w =
+			this.parent === undefined
+				? window.innerWidth
+				: this.parent.clientWidth;
+		const h =
+			this.parent === undefined
+				? window.innerHeight
+				: this.parent.clientHeight;
 
-		return (x >= 0) && (x <= w) && (y >= 0) && (y <= h);
+		return x >= 0 && x <= w && y >= 0 && y <= h;
 	}
 }
 
